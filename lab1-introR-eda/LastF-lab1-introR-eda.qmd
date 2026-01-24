@@ -1,0 +1,329 @@
+---
+title: "STAT 320 Lab 1: Introduction to R & Exploratory Data Analysis"
+author: "NAME"
+format: html
+embed-resources: true
+html-math-method: mathml
+execute: 
+  warning: false
+  echo: true
+  error: false
+---
+
+
+
+## Skills
+
+* Identify the population, sample, and variables of interest in a study
+* Identify variable types
+* Use R to generate and interpret descriptive statistics and graphics for numeric variables
+* Editing graphics in R using arguments
+* Learning and applying Markdown language for text editing
+* Learning and applying R Markdown documents for R code and output generation
+
+
+
+**Please make sure to show all R code and output after each question in the rendered .html so that I can see your work.** Run all code and write answers to each question indicated. Be sure to submit a rendered .html of your most recent work for credit. 
+
+
+CAUTION! Before you begin, did you: 
+
+* rename the .qmd before opening it? If not, do so now. 
+* add your name to the author above? *Note: that is the only part of the YAML header you should edit, unless you need help rendering to submit.* 
+
+
+***
+
+## Introduction
+
+In this lab, we're going to be learning both Exploratory Data Analysis for single quantitative (numeric) variables, and also Quarto. Quarto allows us to create documents with embedded code and outputs. 
+*If you are new to R or need a refresher, go read the primers in the R Resources Module first!*
+
+## Part 1: Introduction to Quarto
+
+When we start a Quarto document, we want to include a "setup" code chunk that will load the packages you need for the document. 
+
+Good coding style includes labeling each code chunk. You do that by starting with `#| label:` which tells the code that what follows is not code to execute, but is naming the code chunk. Code chunk labels should be unique within a document, should be short and descriptive, and should avoid spaces (use hyphens (-) to separate words; avoid all other special characters). The label `setup` is used exclusively for the first code chunk because it has a special properties. 
+
+We can add additional options to code chunks in the same manner. Below, `#| message: false` is set to suppress the automatic message generated when loading packages that informs you what it loaded. Options added in a code chunk apply to that chunk only. 
+
+Some other options might be:  
+`echo: false`, which tells R to hide the code and only display the output  
+`include: false` which hides the code and output, but still runs the code  
+`eval: false` which tells R to not run the code chunk.  
+Local options will override the global options set in the YAML header. We set the *global* options by passing the arguments to the function `execute` in the YAML header. For example, we've set this to `echo: true` to it always prints code chunks and output and `error: false` so the rendering stops and informs you of coding errors. Think of global options as the code chunk defaults; we can always override them for a particular code chunk, but it is the settings we will most often want.*Note: in your labs, you are required to display all code and outputs (other than the package loaded messages). This is simply informative.*
+
+Run this first code chunk to activate your packages we are going to use in this project.
+
+```{r}
+#| label: setup
+#| echo: false
+library(mosaic)
+library(ggformula)
+library(tidyverse)
+```
+
+
+### 1A: Loading data
+
+In order to load the data into an R Markdown file so that it knits correctly, you must specify the exact pathway to the data. Remember, when we knit/render an R Markdown file, every line of code that is needed to run your code chunks has to be included in the Rmd file -- it doesn't interact with your global environment. Essentially, every time you knit, it acts as if the environment is empty and only runs the code in your Rmd file. Thus, we have to direct the R Markdown file where to find our data. It can make life easier to create a project for each lab so that the file pathway is short. 
+
+We are going to use the data collected from prior semesters of Intro to Stats students to investigate the amount of time per week students spend either exercising or watching TV. 
+
+
+1.1. Modify the code below to read in the `StudentSurvey.csv` data. Remember, you can test a code chunk by running the code in the chunk without rendering the whole document. 
+
+```{r}
+#| label: read-survey
+survey<-read_csv(_____________)
+```
+
+We have now created a **dataframe** called `survey.` Now we'll want to investigate the data within our dataframe.
+
+
+
+### 1B: Using Data in R
+
+Recall that in properly organized data, each row is a case and each column is a variable. Once the data is loaded, you will have to "call" the variables for use in each function. 
+
+1.2. First, we need to know the names of the variables in our dataframe and what type of data R has identify them as for analysis. We can do this by using the function `names()` or `head()` and supplying the dataframe name inside the parentheses. 
+
+```{r}
+#| label: 1.2-variables
+
+_____(________)
+```
+
+
+1.3. Identify the variable *type* (e.g. numeric/discrete, categorical/nominal, etc.) for each of the variables in our dataset. 
+
+> Insert your answer here.
+
+1.4. What type of summary statistics (mean, median, frequency, etc.) or graphic (bar plot, histogram, etc.) could we create for each of the variable types?
+
+> Quantitative Continuous: Insert your answer here.  
+> Quantitative Discrete: Insert your answer here.  
+> Categorical Ordinal: Insert your answer here.  
+> Categorical Nominal: Insert your answer here.  
+
+
+
+1.5. What type of variable should age be? It would help for us to inspect the raw data of just the age variable. We can use the `select()` function to pull out a specific variable from the data frame. Use the function below to extract the `age` variable and look at it.
+
+```{r}
+#| label: select-age
+
+survey |> 
+  select(_____) #selects variables listed, separated by ,
+```
+
+
+1.6. You'll notice that age was recorded as whole-years only. What type of variable does it make it? 
+
+> Insert your answer here.
+
+
+Notice a new feature of R code above. In R, using a `#` essentially tells R to ignore anything after the `#`. You can use it to annotate your R code by writing comments explaining what each line of code does. 
+*Note: `#` has a different meaning in R chunks than in the general Markdown document. In R chunks, it precedes comments. In Markdown, it denotes headers. *
+
+
+***
+
+## Part 2: Exploratory Data Analysis
+Now lets build some descriptive statistics and graphics with the `survey` data. 
+
+### 2A: Summary Statistics
+
+
+2.1. What is a summary statistic (also called a descriptive statistic)? How does it differ from raw data?
+
+> Insert your answers here.
+
+
+2.2. We can use R to calculate summary statistics for single quantitative variables, such as the mean and standard deviation. Modify the code below so it produces the mean and standard deviation for both the number of hours per week spent exercising and spent watching tv. *Note: if you get `NA` as a response, you may need to add the argument `na.rm=TRUE` to the function.*
+
+```{r}
+#| label: stats-tv
+
+mean(~exercise, data=survey, na.rm=TRUE)   # calculates the mean for the variable exercise
+sd(~________, data=________)     # calculates the standard deviation for exercise
+[insert code here]       # calculate the mean for tv 
+[insert code here]       # calculate the standard deviation for tv
+```
+
+
+We ran code before to produce the mean and standard deviation alone -- it just prints to the screen. I often will want to save the output to an `object` name so I can use it within the Quarto document. When you save output to an `object` name it will not print out the value unless you tell R to provide the value.
+```{r}
+#| label: demo-objects
+
+mean(~exercise, data=survey) # prints mean but does not save it
+mEx<-mean(~exercise, data=survey) # calculates mean and saves it as mEx
+mEx # prints to screen the value saved to the object name
+(sdEx<-sd(~exercise, data=survey)) #calculates, saves to object name and prints to screen
+```
+
+
+2.3. Use the named objects for mean and standard deviation and write out a description of each value with the output inline of the text. (See primer for demonstration of how this renders). 
+
+Example: The mean amount of time per week spent exercising by prior STAT students is `r mEx` hrs. 
+
+> Provide verbal interpretation of the standard deviation in the context of the problem by including the saved object for the standard deviation inline with the text. 
+
+
+2.4. Below, insert a code chunk and calculate the same set of descriptive statistics about the variable `tv`. You will need to save the values as objects to use it later inline with the text. 
+
+**Add code chunk here**
+
+
+2.5. Use the named objects for mean and standard deviation of **tv** and write out a description of each value with the output inline of the text. 
+
+> Provide verbal interpretation of the mean and standard deviation in the context of the problem by including the saved objects for the standard deviation and mean inline with the text.
+
+
+Using a stored object name is useful if you are going to use the value often (to cut down on typing), but if you only need to use the value small number of times, you can also write the code directly in line. For example, the maximum number of hours of tv watched in a week in our dataset of prior STAT students is `r max(~tv, data=survey, na.rm = TRUE)`. 
+
+2.6. Use in-line code directly to describe the maximum hours of exercise a prior STAT student had in a week. 
+
+> Provide verbal interpretation of the maximum in the context of the problem by include code directly inline with the text. 
+
+
+We often write descriptive statistics using mathematical notation; we can do this in Quarto too. Mathematical equations are surrounded by `$`. We can call greek letters by their full names preceded by a backslash (e.g. `\mu`, `\sigma`), use special notation as well by calling the name preceded by a backslash and then applying it to a numeric value (e.g. `\bar{x}`), or use roman characters directly (e.g. `s`). An equation would then look like, for example: $\bar{x} = 3.9$. (See more examples in the primer; you can hover over an equation without other formatting to see how it would render).
+
+2.7. Which set of symbols would we use for the values we calculated on `exercise` in its last code chunk? Why?
+
+> Provide an answer with explanation
+
+
+2.8. Write the values for `exercise` referenced above, using mathematical notation. (e.g.: symbol = value) 
+
+> Insert answer here. 
+
+
+2.9. Finally, we often just want to get a whole bunch of summary statistics, we can use `df_stats()` for that.  
+
+```{r}
+#| label: df-ex-tv
+
+df_stats(~exercise, data=survey) #Five number summary, mean, sd, n, NA for exercise
+[insert code here] # find the same statistics for tv
+```
+
+
+
+### 2B: Descriptive Graphics
+
+There are two main types of descriptive graphics we can use for numeric data: histograms and boxplots. We'll learn how to make both in R and customize them using arguments. 
+
+#### 2B.i: Histograms
+
+Below is the basic code for a histogram of `exercise`. The function tells R to make a histogram. The first argument provided is always the data that you want graphed in the histogram. I have added two additional arguments to the code. Try running it different times and see what changes as you change the text within the quotation marks. Notice that this code is spaced out differently than we've seen before. It is just to make commenting each argument easier -- R will keep reading the function until it reaches the end `)`. 
+
+2.10. Comment on each line of code to indicate what it does and modify the code to add labels to the graph axes.
+```{r}
+#| label: exercise-histogram
+
+gf_histogram(~exercise, data=survey, # comment here
+     xlab = "x label here", # comment here
+     ylab = "y label here") # comment here
+```
+
+
+2.11. Describe the histogram in terms of the four characteristics discussed in introductory statistics (central tendency, spread, shape, outliers). 
+
+> Insert your answer here.
+
+
+2.12. Look at the frequency distribution in the histogram. What does this tell us about the amount of time spent exercising per week for STAT students?
+
+> Insert your answer here. 
+
+
+2.13. Below is a basic code for a histogram. Modify the code to plot a histogram for the variable `tv`, being sure to label your axes appropriately. Add at least one additional modification after adding axis labels (refer to Note Outline 1 or the primer for examples). 
+
+```{r}
+#| label: tv-histogram
+
+gf_histogram(~_________, data=___________)
+```
+
+
+
+### 2B.ii: Boxplots
+
+2.14. Now let's create a boxplot to look at the distribution of `exercise`. To the code below, add arguments inside the function to add appropriate axis labels. *Note: The additional code (`gf_refine`) is to remove axis marks where we don't need them.*
+
+```{r}
+gf_boxplot(~exercise, data=survey, 
+           ______________________ ) |>  
+  gf_refine(theme(axis.ticks.x=element_blank(),
+            axis.text.x=element_blank()))
+```
+
+
+2.15. What information do you learn from the boxplot that you didn't see in the histogram and vice versa? 
+
+> Provide a response here.
+
+
+2.16. Insert a code chunk and create a boxplot for `tv`. 
+
+**Add code chunk here.**
+
+
+
+
+2.17. Describe the distributions based on the boxplots for `tv` and `exercise`. 
+
+> Provide a response here.
+
+
+
+
+## Part 3: Scenario: Winter Olympic Games
+
+The Winter Olympic games are fascinating the world right now. While watching, Jordyn became interested about the number of medals won by countries across all Winter Olympics, but also that the games has grown from just including 16 participating nations in 1924 to 91 nations in 2022. They are interested in looking at the medal count per involvement in the games. In their sampling, they allowed the same chance for each country to be sampled from all participating countries in Winter Olympic games from 1924 - 2022. They recorded the number of total medals a country won, the number of games the nation participated in, and calculated the ratio of medals per games (i.e., the number of medals won in an Olympic per participation) in `WinterOlmypics_S26.csv`. The variable inside is `Ratio.MedalPart`.
+
+
+3.1. What is the population and sample for this scenario?
+
+> Provide an answer and justification here.
+
+
+3.2. What type of study was this?
+
+> Provide and answer and justification here.
+
+
+3.3. What type of variable is recorded in ``Ratio.MedalPart`?
+
+> Provide an answer and justification here.
+
+
+3.4. Insert a code chunk that will read in your data and then calculate the relevant summary statistics. After your code chunk, describe each statistic using mathematical and verbal notation. 
+
+**Add code chunk here.**
+
+> Provide mathematical (e.g. $equation$) and verbal interpretation of each value calculated. 
+
+
+3.5. Create an appropriate graphic of your sample data. It should include any modifier as necessary to label the graphic.
+
+**Add code chunk here**
+
+
+3.6. Describe the distribution of of the medals earned per participation for countries that have participated in the Winter Olympics.
+
+> Provide an answer here
+
+
+
+
+
+## Checking code & Rendering your Document
+
+You can run specific code chunks to check their output by pressing the green play button to run the specific code chunk, or the icon next to it to run all code chunks prior to that code chunk. If you want to check your Quarto editing, you can render the document and view it in the 'Viewer' Pane by pressing the 'Render' button at the top of the Quarto pane. Make sure the setting (gear icon above) is set to 'Preview in Viewer pane'. 
+
+
+## Appendix
+
+For quick reference of Quarto syntax, this website has the [basics](https://quarto.org/docs/authoring/markdown-basics.html).  
