@@ -60,7 +60,7 @@ Run this first code chunk to activate your packages we are going to use in this 
 #| echo: false
 library(mosaic)
 library(ggformula)
-library(tidyverse)
+library(readr)
 ```
 
 
@@ -255,8 +255,8 @@ gf_histogram(~_________, data=___________)
 ```{r}
 gf_boxplot(~exercise, data=survey, 
            ______________________ ) |>  
-  gf_refine(theme(axis.ticks.x=element_blank(),
-            axis.text.x=element_blank()))
+  gf_refine(theme(axis.ticks.y=element_blank(),
+            axis.text.y=element_blank()))
 ```
 
 
