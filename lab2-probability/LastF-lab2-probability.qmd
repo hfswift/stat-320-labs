@@ -126,7 +126,8 @@ sim<-rbinom(1000, size = _____, prob = _____)
 mean(sim ____ 13)
 ```  
     
->Insert Interpretation of Output Here   
+> Insert Interpretation of Output Here   
+> Compare results here  
     
         
 3.2. Repeat the calculations from question 1.6.  
@@ -135,5 +136,6 @@ mean(sim ____ 13)
 #Put Code Here
 ```  
     
->Insert Interpretation of Output Here  
+> Insert Interpretation of Output Here  
+> Compare results here  
 
