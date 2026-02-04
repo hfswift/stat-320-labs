@@ -1,0 +1,139 @@
+---
+title: "STAT 320 Lab 2: Probability Theory"
+author: "NAME"
+format: html
+embed-resources: true
+html-math-method: mathml
+execute: 
+  warning: false
+  echo: true
+  error: false
+---
+
+
+
+**Please make sure to show all R code and output after each question in the rendered .html so that I can see your work.** Run all code and write answers to each question indicated. Be sure to submit a rendered .html of your most recent work for credit. You may also submit a .zip of the full project in addition to your .html for extra insurance. 
+
+
+CAUTION! Before you begin, did you: 
+
+* rename the .qmd before opening it? If not, do so now. 
+* add your name to the author above? *Note: that is the only part of the YAML header you should edit, unless you need help rendering to submit.* 
+
+
+***
+
+## Part 1: Park Visitation - Theoretically
+
+According to the National Park Service, 37% of all visits to a national park in 2024 was to one of the top 5 most-visited parks ("Big 5"). Suppose we take a random sample of 25 park visits. Assume the results from 2024 are similar to today. 
+
+  
+1.1 Explain why the above is a binomial scenario and fully check the conditions (state each condition, if it was met and justify why with evidence).  
+    
+>Insert Answer Here  
+
+      
+1.2. Find the probability that at least 13 visits in the sample were to one of the "Big 5".  
+        
+```{r}
+#Put Code Here
+```  
+    
+>Insert Interpretation of Output Here 
+
+
+
+1.3. Find the probability that at most 11 visits in the sample were to one of the "Big 5".   
+    
+```{r}
+#Put Code Here
+```  
+    
+>Insert Interpretation of Output Here 
+
+
+1.4. Find the probability that exactly 6 visits in the sample were to one of the "Big 5" parks.     
+```{r}
+#Put Code Here
+```  
+    
+>Insert Interpretation of Output Here 
+        
+        
+
+Suppose we take a *new* sample of 1000 visits this year.  We want to see if the public has increased in visiting the "Big 5" (i.e. they are going to smaller parks less often).  We find that 386 visits in the new sample were to one of the "Big 5" national parks. Conduct a hypothesis test to determine if there has been an increase in the visitation to the "Big 5" parks.  
+
+
+1.5. Set up the appropriate null and alternative hypothesis for the provided research question. The information between the $ signs is LaTex code that allows us to write mathematical formulas.  Add a verbal description of the null and alternative hypothesis.
+
+$H_0: \pi = 0.37$   
+
+>Insert the Interpretation Here   
+
+$H_1: \pi > 0.37$  
+
+>Insert the Interpretation Here    
+
+
+1.6. Calculate the appropriate probability-value (p-value) of getting our count or higher if $\pi = 0.37$ and interpret the probability in context.  
+
+```{r}
+#Put Code Here
+```  
+    
+>Insert Interpretation of Output Here  
+
+
+1.7. Evaluate the strength of evidence from the hypothesis test in context.  Be sure to provide a parenthetical statement of the test statistic, p-value, and significance level. 
+
+> Insert answer here
+
+
+## Part 2: Grain Size - Theoretically
+
+When researching ground water it is often important to know the characteristics of soil at a certain site. Many of these characteristics, such as porosity, are at least partially dependent upon grain size. The diameter of individual grains of soil can be measured. Assume that the distribution of the diameters of individual grains follows a Normal distribution with a mean of 1.33mm and a variance of 0.004. Find the probability that.....  
+
+2.1. ...a randomly selected grain has a diameter less than 1.313mm.  
+    
+```{r}
+#Fix the Code Here
+pnorm(q=___, mean=___, sd=____, lower.tail = TRUE)
+# hint: how do you calculate the standard deviation from the values you were given? 
+```  
+    
+>Insert Interpretation of Output Here  
+        
+
+2.2. ...a randomly selected grain has a diameter greater than 1.345mm.  
+    
+```{r}
+#Put Code Here
+```  
+    
+>Insert Interpretation of Output Here  
+
+
+## Part 3: Park Visitaion - Empirical Calculations
+
+
+Repeat the calculations of the part indicate question for each problem using the *simulation method* to find the probabilities. Compare the results with your calculation of the theoretical probabilities. 
+
+3.1. Repeat the calculations from question 1.2.  
+
+```{r}
+#Fix the Code Here
+sim<-rbinom(1000, size = _____, prob = _____)
+mean(sim ____ 13)
+```  
+    
+>Insert Interpretation of Output Here   
+    
+        
+3.2. Repeat the calculations from question 1.6.  
+
+```{r}
+#Put Code Here
+```  
+    
+>Insert Interpretation of Output Here  
+
