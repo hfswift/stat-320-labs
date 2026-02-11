@@ -1,0 +1,224 @@
+---
+title: "STAT 320 S26 Lab 3: Inference about the Median"
+author: "NAME"
+format: html
+embed-resources: true
+html-math-method: mathml
+execute: 
+  warning: false
+  echo: true
+  error: false
+---
+
+
+
+**Please make sure to show all R code and output after each question in the rendered .html so that I can see your work.** Run all code and write answers to each question indicated. Be sure to submit a rendered .html of your most recent work for credit. You may also submit a .zip of the full project in addition to your .html for extra insurance.
+
+
+CAUTION! Before you begin, did you: 
+
+* rename the .qmd before opening it? If not, do so now. 
+* add your name to the author above? *Note: that is the only part of the YAML header you should edit, unless you need help rendering to submit.* 
+
+
+Possible useful symbols / examples of how to add context to any symbol (You can also learn more about writing formulas in markdown in the additional primers in the R Resources on Canvas):  
+$H_0$  $H_1$  $\mu$  $\mu_0$  $\mu_{word}$  $\mu_{phrase~with~spaces}$  $\theta$  $>  <  \neq$  $s^2$   
+
+
+***
+```{r}
+#| label: setup
+#| include: FALSE
+#| message: FALSE
+
+library(BSDA)  #be sure to install the package first!
+library(mosaic)
+library(ggformula)
+library(tidyverse)
+objectname <- "" #ignore this - it is for a demo later
+```
+
+
+## Part 1: Health Care Spending  
+
+The amount of money spent on health care is an important issue for workers because many companies provide health insurance that only partially covers many medical procedures. The director of employee benefits at a midsize company wants to determine the amount spent on health care by the typical hourly worker in the company. A random sample of 25 workers from this company is selected and the amount they spent on their families' health care needs during the past year is given in `health_care.csv`.  
+
+```{r}
+#| label: read-health
+
+health <- read_csv("health_care.csv")
+```
+
+
+1.1. Create an appropriate graphic and summary statistics to describe the shape, central tendency, and spread of the data. Be sure to label the graph axes appropriately. Use the `r objectname` inline output options to provide verbal interpretations of your summary statistics in context.
+    
+```{r}
+#|label: health-eda
+#Put Code Here 
+__graphic___(~_______, data = ______) # fill in the blanks as needed to create a graphic. Add arguments to make an appropirate graphic.
+
+(__objectname__ <- __code for statistics__)  #this is a placeholder. Replace the blanks as needed (hints for each blank provided). Assign your code that calculates statistics such as mean, median, etc. to object names and use the object names to reference the values within the text. You probably want more than one. As written here, the code with both display an output for you while also saving the value in the object name
+```    
+
+> Insert Answer Here  
+    
+        
+1.2. Based on your answer in 1.1, is the mean or the median cost per household a more appropriate measure of what the typical worker spends on health care needs?  Explain your choice.  
+    
+> Insert Answer Here   
+        
+        
+1.3. Does the typical worker at this company spend more than $400 per year on health care needs?  Answer this question using a hypothesis test and a significance level of 0.05.  
+
+1.3.i. Set up the null and alternative verbally and symbolically (be sure to include full context). Note: there is a list of possible symbols at the start of the lab. You can hover your mouse over each one to see what it creates. 
+
+> $H_0: \theta = $  
+
+>Verbal:  
+
+> $H_1: \theta $  
+
+>Verbal:   
+        
+        
+1.3.ii. Calculate test statistics and p-value. Perform your calculations "by hand" (that is use the descriptive or probability formulas I gave you in R) and then verify using `SIGN.test()`. 
+    
+```{r}
+#| label: health-test
+#Put Code Here
+```   
+        
+        
+        
+1.3.iii. Interpret the p-value in the context of the problem. You can use in-line code to insert your test statistic and p-value values if you used the `r objectname` options in 1.3.ii. 
+        
+> Insert Answer Here    
+
+
+1.4.i. Calculate a 95% confidence interval on the amount spent on health care by the typical worker at this company. Perform your calculations "by hand" (that is use the formulas I gave you in R to determine your lower and upper bound) and then verify using `SIGN.test()`.
+     
+```{r}
+#| label: health-ci
+#Put Code Here
+```    
+
+
+1.4.ii. Interpret the confidence interval from 1.4.i.  Explain what the confidence interval is telling us about the amount spent on health care needs in this company. Use the `r objectname` inline output options to insert your upper and lower bounds into the text interpretation.  
+    
+> Insert Answer Here   
+
+
+1.5. Does the typical worker spend more than $400 per year on health care needs? Write a general conclusion using at least two pieces of evidence to support your answer, being sure to evaluate the strength of your evidence in support of your answer. Don't forget the final sentence discussing more broad implications of how the answer should be applied. 
+        
+> Insert Answer Here   
+        
+      
+
+
+## Part 2: Blood-Alcohol & Reaction Times
+
+Prior to 1998, many states had attempted to reduce the blood-alcohol level at which a legally-aged driver was declared to be legally drunk. There had been resistance to this change in the law by certain business groups who argued that the then limit of 0.1% is adequate. A study was conducted to demonstrate the effect on reaction time of a blood-alcohol level of 0.1%. A random sample of 28 people of legal driving age had their reaction time recorded in a standard laboratory test procedure before and after drinking a sufficient amount of alcohol to raise their blood-alcohol to a 0.1% level. The difference (After-Before) in their reaction times in seconds was recorded and supplied in `bac_reactions.csv`.  
+
+```{r}
+#| label: read-react
+react <- read_csv("bac_reactions.csv")
+```  
+
+
+2.1. Create an appropriate graphic and calculate summary statistics to describe the shape, central tendency, and spread of the data in the answer below. Be sure to label the graph axes appropriately. 
+    
+```{r}
+#Put Code Here 
+```    
+
+> Insert Answer Here    
+      
+
+2.2. Based on your answer in 2.1, is the mean or the median hypothesis test and/or confidence interval more appropriate?  Explain your choice.  
+    
+> Insert Answer Here   
+          
+
+2.3. Is the difference between the before and after reaction times meaningful? How would you test this using a hypothesis test (Hint: what would your alternative be if there was a difference in the reaction times)? Answer this question using a hypothesis test and a significance level of 0.05. 
+    
+2.3.i. Set up the null and alternative verbally and symbolically. (be sure to include full context). Note: there is a list of possible symbols at the start of the lab. You can hover your mouse over each one to see what it creates. 
+
+> $H_0: $  
+
+> Verbal:  
+
+> $H_1: $  
+
+> Verbal:   
+        
+2.3.ii. Calculate test statistics and p-value. Perform your calculations "by hand" (that is use the formulas I gave you in R to determine your lower and upper bound) and then verify using `SIGN.test()`. 
+    
+```{r}
+#Put Code Here
+```   
+        
+
+2.3.iii. Interpret the p-value in the context of the problem.  
+        
+> Insert Answer Here   
+        
+
+2.4. Calculate a 99% confidence interval for the *mean* difference in reaction times. You can do the calculation "by hand" or using `t.test()`. Is there sufficient evidence that a BAC of 0.1% causes any increase in the mean reaction time? (Evaluate the plausibility of 0.1% as the true value given your calculated confidence interval.)
+     
+```{r}
+#Put Code Here 
+```    
+
+> Insert Answer Here   
+ 
+
+2.5. Calculate a 99% confidence interval for the *median* difference in reaction times.  Perform your calculations "by hand" (that is use the formulas I gave you in R to determine your lower and upper bound) and then verify using `SIGN.test()`.  Is there sufficient evidence that a BAC of 0.1% causes any increase in the median reaction time? (Evaluate the plausibility of 0.1% as the true value given your calculated confidence interval.)
+     
+```{r}
+#Put Code Here 
+```    
+
+> Insert Answer Here   
+
+
+
+2.6. In 1998, the lobbyist for the business group has their expert examine the experimental equipment and determines that there may be measurement errors in recording the reaction times. He claims that unless the difference in reaction time is at least 0.25 seconds, the two times (before and after drinking) are essentially equivalent. Is there sufficient evidence that the median difference in reaction time is greater than 0.25 seconds? Answer this question using a hypothesis test and a significance level of 0.05. 
+
+    
+2.6.i. Set up the null and alternative verbally and symbolically. (be sure to include full context). Note: there is a list of possible symbols at the start of the lab. You can hover your mouse over each one to see what it creates. 
+ 
+
+$H_0: $  
+
+>Verbal:  
+
+$H_1: $  
+
+>verbal:   
+
+        
+2.6.ii. Calculate test statistics and p-value. Perform your calculations "by hand" (that is use the formulas I gave you in R to determine your p-value) and then verify using `SIGN.test()`. 
+    
+```{r}
+#Put Code Here
+```   
+        
+
+2.6.iii. Interpret the p-value in the context of the problem.  
+        
+>Insert Answer Here   
+        
+ 
+        
+2.7. In 1998, President Bill Clinton proposed that the national blood-alcohol level at which a person is considered legally drunk while driving should be 0.08%. Summarize the your above results in a press release justifying his proposal (i.e., write up your results for the general public; you probably should address practical significance in your justification).  
+    
+>Insert answer here
+    
+
+
+
+
+    
+
+
+
