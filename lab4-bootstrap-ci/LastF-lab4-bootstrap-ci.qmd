@@ -1,0 +1,312 @@
+---
+title: "STAT 320 S26 Lab 4: Bootstrap Distributions and Confidence Intervals"
+author: "NAME"
+format: html
+embed-resources: true
+html-math-method: mathml
+execute: 
+  warning: false
+  echo: true
+  error: false
+---
+
+
+
+
+
+**Please make sure to show all R code and output after each question in the rendered .html so that I can see your work.** Run all code and write answers to each question indicated. Be sure to submit a rendered .html of your most recent work for credit. You may also submit a .zip of the full project in addition to your .html for extra insurance.
+
+
+CAUTION! Before you begin, did you: 
+
+* rename the .qmd before opening it? If not, do so now. 
+* add your name to the author above? *Note: that is the only part of the YAML header you should edit, unless you need help rendering to submit.* 
+
+Possibly useful symbols / examples of how to add context to any symbol (You can also learn more about writing formulas in markdown in the additional primers in the R Resources on Canvas):  
+$H_0$  $H_1$  $\mu$  $\mu_0$  $\mu_{word}$  $\mu_{phrase~with~spaces}$  $\theta$  $\pi$ $>  <  \neq$  $s^2$  $\bar{x}$  $\hat{p}$
+
+
+***
+```{r}
+#| label: setup
+#| include: FALSE
+
+library(ggformula)
+library(mosaic)
+library(tidyverse)
+```
+
+
+## Part 1
+The owner of a bistro called First Crush in Potsdam, NY, is interested in studying the tipping and payment patterns of its patrons. He collected restaurant bills over a two-week period that he believes provide a good representative sample of his customers. That data from 157 bills are stored in `RestaurantTips` and includes the following variables:
+
+Variable      | Description
+--------------|-------------------------------------------------------------------------
+Bill          | Size of the bill (in dollars)
+Tip           | Size of the tip (in dollars)
+Credit        | Paid with a credit card? (n = NO, y = YES)
+Guests        | Number of people in the group
+Day           | Day of the Week (m=Monday, t=Tuesday, w=Wednesday, th=Thursday, f=Friday)
+Server  	    | Code for specific waiter/waitress (A, B, or C)
+PctTip        | Tips as a percentage of the bill
+
+
+```{r}
+#| label: data
+library(Lock5Data, quietly = TRUE) #you will need to install this package first if you work on your own computer; it is already installed on the Hub
+data(RestaurantTips) #this is the equivalent of reading in a csv file for data stored in a package
+```
+
+
+1.1. Consider how the data was collected. Identify the sample and population we can generalize our results to based on the collection method of the data.  
+    
+> Insert Answer Here  
+    
+
+1.2. Can we extend the results of the analysis to other restaurants in other cities?  Explain.  
+    
+> Insert Answer Here  
+
+
+1.3. For each of the variables in the study, identify if they are quantitative or qualitative.  
+   
+> Insert Answer Here  
+    
+
+1.4. Remember the goal of the study is to look at what factors influence the tipping practices of the customers. There are two measurements of tip in the data set: `Tip` (actual dollar amount) and `PctTip` (Percent of the Bill). Which variable would be the best representation of tip for us to use in our study? Explain.  
+    
+> Insert Answer Here  
+    
+
+
+## Part 2
+Exploratory data analysis: we are going to create some exploratory graphics and statistics.
+
+
+2.1. Create a barplot of the `Credit`. Modify the code below to label the graph axes appropriately.  
+    
+```{r}
+#| label: credit-barplot
+gf_bar(~Credit, data = RestaurantTips)
+
+```    
+  
+
+2.2. Look at the frequency distribution based on the bar graph. (1) Describe the `Credit` distribution of the bills in the study. (2) What do you notice about the number of patrons that use credit cards versus cash?   
+    
+> Insert Answer Here  
+> Insert Answer Here      
+
+   
+2.3. Create a histogram and provide the appropriate descriptive statistics for `PctTip`.  
+     
+```{r}
+#| label: ptip-hist
+
+
+```    
+
+
+
+2.4. Modify the boxplot code for the percent tip `PctTip` split by method of payment, `Credit` and provide the appropriate descriptive statistics. Replace the full [ hint ] or "hint".  
+
+```{r}
+#| label: ptip-credit-box-stats
+
+gf_boxplot([Quantitative Variable] ~ [Categorical Variable], data = [dataframe], xlab = "X Label", ylab = "Y Label")
+
+[stat_function]([Quantitative Variable] ~ [Categorical Variable], data = [dataframe]) #may need more than one of these
+```  
+
+
+
+
+## Part 3
+Now we are going to consider the confidence interval in order to estimate the true mean percent tip given at the restaurant in our study. 
+
+
+3.1. First, create a histogram of the bootstrap distribution for the mean of `PctTip`. Identify what each line of code is doing in the comments. Graph your bootstrap distribution; be sure to label the graph axes appropriately. Provide a measure of the mean and standard error (sd) of the bootstrap.
+
+```{r}
+#| label: ptip-boot
+
+N <- 10000  #comment here
+
+tip_mean <- numeric(N) #comment here
+
+
+for (i in 1:N) {  #comment here
+  
+  resample_tip <- resample(RestaurantTips, replace = TRUE) #comment here
+  
+  tip_mean[i] <- mean(~PctTip, data = resample_tip) #comment here
+
+  }
+
+   #graph the bootstrap distribution
+   #provide a measure of the mean
+   #provide a measure of the standard deviation
+
+   #calculate the bias
+```      
+
+
+3.2. Describe the shape of the distribution of the Bootstrap Distribution for the mean tip percentage. What does the bootstrap distribution tell us about the sampling distribution of the sample mean for `PctTip`?  
+    
+> Insert Answer Here    
+> Insert Answer Here  
+    
+
+
+3.3. Let's consider a 95% confidence interval for the true mean percent tip at the restaurant (in the sub-questions). Interpret in the context of the situation using the Bootstrap Percentile method.   
+
+3.3.i. Use the Bootstrap Percentile Method to calculate the 95% confidence interval, replacing the [value] with the appropriate numbers.
+
+```{r}
+#| label: ptip-boot-ci
+
+quantile(tip_mean, c([value],[value]))
+```  
+
+
+3.3.ii. Provide a verbal interpretation of the interval.
+        
+> Insert Answer Here   
+    
+
+        
+        
+3.3.iii. Are the correct conditions met to use this confidence interval for statistical inference (i.e. is the Bootstrap Method appropriate)? Explain.
+      
+> Insert Answer Here    
+  
+
+
+3.4. Is there evidence that the restaurant patrons tip at least the common recommended minimum of 15%, on average? Justify your answer using statistical inference.
+        
+> Insert Answer Here
+
+
+
+
+### 3.e.    
+A recent newspaper article recommends always tipping 20% [See Article Here](http://www.laweekly.com/restaurants/10-handy-rules-for-tipping). Do the restaurant patrons tip the new recommended 20%?
+    
+> Insert Answer Here  
+          
+
+
+
+## Part 4
+Now let's estimate the proportion of restaurant patrons that use credit card for purchase.  
+
+
+4.1. First, create a the bootstrap distribution for the proportion of `Credit` that is "yes". Provide the histogram as well as a measure of the mean and standard error (sd) of the bootstrap. Be sure to label the graph axes appropriately. 
+
+First, we need to identify the sample proportion for those that use a credit card (`y`):  
+```{r}
+#| label: cdt-stat
+
+tally(~_____, data = _____, format = "_____")
+```      
+ 
+ 
+Update the code appropriately to get the Bootstrap Distribution and fill in any blanks:  
+
+```{r}
+#| label: cdt-boot
+
+sample_size <- _____
+
+sample_prop <- _____
+
+boot_prop <- rbinom(10000, size = sample_size, prob = sample_prop)/sample_size
+
+gf_histogram(~boot_prop, binwidth = ________,
+             xlab = "Bootstrapped Sample Proportion of _________________",
+             ylab = "Number of Resamples",
+             title = "Boostrap Distribution of the Sample Proportion")
+
+mean(~_____)
+sd(~____)
+
+(_____ - mean(~_____))/sd(~_____) 
+```
+
+ 
+    
+4.2. Describe the shape of the distribution of the Bootstrap Distribution for the proportion of credit card users. What does the bootstrap distribution tell us about the sampling distribution of the sample proportion of credit card users?
+    
+>Insert Answer Here  
+    
+
+
+4.3. Let's consider a 90% confidence interval for the true proportion of credit card payers at the restaurant (in the sub-questions). Interpret in the context of the situation using the Bootstrap Percentile method.   
+
+4.3.i. Use the Bootstrap Percentile Method to calculate the 90% confidence interval.
+```{r}
+#| label: cdt-boot-ci
+
+#Put Code Here 
+```  
+
+
+4.3.ii. Provide a verbal interpretation of the interval.
+        
+>Insert Answer Here   
+    
+        
+4.3.iii. Are the correct conditions met to use this confidence interval for statistical inference? Explain.
+      
+>Insert Answer Here   
+
+
+
+
+## Part 5
+
+A statistician decides to run the following code and produces a 95% confidence interval.
+```{r}
+#| label: part5-boot
+
+credit <- RestaurantTips |> filter(Credit == "y")
+cash <- RestaurantTips |> filter(Credit =="n")
+
+diff_mean <- numeric(1000)
+
+for (i in 1:1000) {
+  
+  credit_mean <- mean(~PctTip, data = resample(credit, replace = TRUE))
+  cash_mean <- mean(~PctTip, data = resample(cash, replace = TRUE))
+  diff_mean[i] <- credit_mean - cash_mean
+}
+
+
+gf_histogram(~diff_mean, xlab = "Bootstrap Sample __", title = "Bootstrap Distribution of __")
+quantile(diff_mean, c(0.025,0.975))
+```   
+  
+
+5.1. What does this bootstrap percentile confidence interval produced estimate? Provide an interpretation in context.
+    
+> Insert Answer Here  
+          
+
+
+5.2. Are the conditions met to use the interval produced to make statistical inference?
+    
+> Insert Answer Here  
+          
+
+5.3. What does the confidence interval tell you about credit card and cash purchases and percent tip at this restaurant?
+    
+> Insert Answer Here  
+          
+
+
+
+CAUTION! Before you submit did you:
+
+* render the file freshly?
+* proofread your html? Did your answers format correctly so they are easy to read? Did any of your code produce errors you need to fix?
+* You are required to submit the .html individually, but you can also submit the .zip of all files for insurance.  
