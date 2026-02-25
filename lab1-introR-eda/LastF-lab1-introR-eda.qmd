@@ -23,7 +23,7 @@ execute:
 
 
 
-**Please make sure to show all R code and output after each question in the rendered .html so that I can see your work.** Run all code and write answers to each question indicated. Be sure to submit a rendered .html of your most recent work for credit. You may also submit a .zip of the full project in addition to your .html for extra insurance.
+**Please make sure to show all R code and output after each question in the rendered .html so that I can see your work.** Run all code and write answers to each question indicated. Be sure to submit a rendered .html of your most recent work for credit. You may also submit a .zip of the full project in addition to your .html for extra insurance. 
 
 
 CAUTION! Before you begin, did you: 
@@ -153,6 +153,7 @@ sd(~________, data=________)     # calculates the standard deviation for exercis
 
 
 We ran code before to produce the mean and standard deviation alone -- it just prints to the screen. I often will want to save the output to an `object` name so I can use it within the Quarto document. When you save output to an `object` name it will not print out the value unless you tell R to provide the value.
+
 ```{r}
 #| label: demo-objects
 
@@ -253,6 +254,8 @@ gf_histogram(~_________, data=___________)
 2.14. Now let's create a boxplot to look at the distribution of `exercise`. To the code below, add arguments inside the function to add appropriate axis labels. *Note: The additional code (`gf_refine`) is to remove axis marks where we don't need them.*
 
 ```{r}
+#| label: ex-boxplot
+
 gf_boxplot(~exercise, data=survey, 
            ______________________ ) |>  
   gf_refine(theme(axis.ticks.y=element_blank(),
@@ -294,7 +297,7 @@ The Winter Olympic games are fascinating the world right now. While watching, Jo
 > Provide and answer and justification here.
 
 
-3.3. What type of variable is recorded in ``Ratio.MedalPart`?
+3.3. What type of variable is recorded in `Ratio.MedalPart`?
 
 > Provide an answer and justification here.
 
