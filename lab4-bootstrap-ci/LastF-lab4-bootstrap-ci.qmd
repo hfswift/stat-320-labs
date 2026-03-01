@@ -54,7 +54,8 @@ PctTip        | Tips as a percentage of the bill
 ```{r}
 #| label: data
 library(Lock5Data, quietly = TRUE) #you will need to install this package first if you work on your own computer; it is already installed on the Hub
-data(RestaurantTips) #this is the equivalent of reading in a csv file for data stored in a package
+data(RestaurantTips) #this is the equivalent of reading in a csv file for data stored in a package; use this line of code if you are working on the Hub or running version 3.0.0 of the Lock4Data package on your computer. 
+# data(RestaurantTips1e) # use this line of code instead of the one above if you are running version 4.0.0 or higher for Lock5Data. 
 ```
 
 
