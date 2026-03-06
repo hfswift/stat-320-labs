@@ -1,0 +1,286 @@
+---
+title: "STAT 320 S26 Lab 5: Permutation Hypothesis Testing"
+author: "NAME"
+format: html
+embed-resources: true
+html-math-method: mathml
+execute: 
+  warning: false
+  echo: true
+  error: false
+---
+
+
+
+
+
+**Please make sure to show all R code and output after each question in the rendered .html so that I can see your work.** Run all code and write answers to each question indicated. Be sure to submit a rendered .html of your most recent work for credit. You may also submit a .zip of the full project in addition to your .html for extra insurance.
+
+
+CAUTION! Before you begin, did you: 
+
+* rename the .qmd before opening it? If not, do so now. 
+* add your name to the author above? *Note: that is the only part of the YAML header you should edit, unless you need help rendering to submit.* 
+
+Possibly useful symbols / examples of how to add context to any symbol (You can also learn more about writing formulas in markdown in the additional primers in the R Resources on Canvas):  
+$H_0$  $H_1$  $\mu$  $\mu_0$  $\mu_{word}$  $\mu_{phrase~with~spaces}$  $\theta$  $\pi$ $>  <  \neq$  $s^2$  $\bar{x}$  $\hat{p}$
+
+
+***
+
+```{r}
+#| label: setup
+#| include: false
+library(mosaic)
+library(ggformula)
+library(tidyverse)
+```
+
+
+# One-Sample Tests
+
+## Part 1: Readers
+The percent of US adults who read books for pleasure may be decreasing. A survey of 2203 randomly selected US adults conducted in January 2021 found that 1057 adults said that they had read more than five in the last year. Does the 2021 survey provide evidence that more than half of US adults read no at least five books in a year? 
+
+
+
+Test whether more than half of US adults read at least 5 books in a year. Show all details.
+
+1.1. Modify the text below to state the null and alternative hypothesis by replacing [placeholder] with the appropriate word or value.
+
+>$H_0: \pi = [placeholder]$ The true [placeholder] of US adults that read at least 6 books in a year is [placeholder].    
+
+>$H_1: \pi > [placeholder]$ The true [placeholder] of US adults that read at least 6 books in a year is greater than [placeholder].       
+
+
+1.2. Calculate and define the appropriate test statistic by replacing [placeholder] with the appropriate description.
+                            
+```{r}
+#| label: p1-phat
+
+(phat <- [placeholder])
+```    
+
+> The test statistic is the [placeholder] of US adults who read at least 6 books in a year from the survey and is `r phat`. 
+
+
+
+1.3. Create the permutation distribution for the null assumption by modifying the code below with the appropriate description or value for [placeholder].
+
+```{r}
+#| label: p1-permutation 
+
+N <- 10^4 - 1
+
+perm_dist_p <- numeric(N)
+
+for (i in 1:N){
+  x <- rbinom(1, [placeholder], [placeholder])
+  perm_dist_p[i] <- x/[placeholder]
+}
+
+gf_histogram(~perm_dist_p, 
+             xlab = "[placeholder]", 
+             ylab = "[placeholder]", 
+             title = "[placeholder]")
+```    
+
+
+1.4. Calculate the p-value by replacing [placeholder] with the appropriate symbol.
+                            
+```{r}
+#| label: p1-pvalue
+
+(pval <- (sum(perm_dist_p [placeholder] phat) + 1)/(N + 1))
+```    
+
+           
+1.5. Interpret the p-value in the context of the problem (actually interpret what the p-value measures, not the strength of evidence) by choosing the right option from the [ ], or filling in [placeholders].  
+        
+>The probability is `r pval` that we would observe a test statistic of $\hat{p} =$ `r phat` or **[GREATER/LESS]**, assuming the null hypothesis is true and the [placeholder]  of US adults who read at least five books a year is [placeholder].  
+            
+      
+1.6. Evaluate the strength of evidence against the null hypothesis, as well as provide a second piece of evidence in addition to the p-value against the null.
+        
+> Insert Answer Here   
+            
+      
+1.7. State the conclusion of the hypothesis test in the context of the problem (i.e. what your overall answer could be to the research question).
+        
+> Insert Answer Here  
+            
+
+
+
+## Part 2: Lake pH
+
+The pH of a liquid is a measure of its acidity or alkalinity.  Pure water has a pH of 7, which is neutral. Solutions with a pH less than 7 are acidic while solutions with a pH greater than 7 are alkaline. The data set `FloridaLakes` gives information, including pH values, for a random sample of lakes in Florida (this should be familiar!)
+
+```{r}
+#| label: p2-data
+
+library(Lock5Data)
+data(FloridaLakes) # loads in your data when it is in a package instead of a .csv and "FloridaLakes" is the dataframe object going forward
+```
+
+
+2.1. We are going to focus on `pH` for the lakes. Provide exploratory data analysis (summary statistics and graphics) for `pH`.
+
+```{r}
+#| label: p2-eda
+
+#Put Code Here 
+```    
+
+    
+Test whether there is evidence that the pH level of Florida lakes are acidic (or less than 7) pH.  
+2.2. State the null and alternative hypothesis 
+
+>$H_0: \mu =  $ Insert Answer Here
+
+>$H_1: \mu =  $ Insert Answer Here
+
+
+       
+2.3. Calculate the appropriate test statistic.  
+                            
+```{r}
+#| label: p2-teststat
+
+#Put Code Here
+
+```    
+
+> Insert Answer Here   
+    
+          
+2.4. Create the permutation distribution for the null assumption. 
+
+```{r}
+#| label: p2-permutation
+
+#Add adjustment to create a null distribution from the sample data.  
+____ <- 7 - mean(~pH, data = FloridaLakes)
+null_pop <- FloridaLakes |> mutate(pH = pH + _____)
+
+#continue code for a permutation null distribution. 
+
+```   
+
+           
+2.5. Calculate the p-value.
+                            
+```{r}
+#| label: p2-pvalue
+
+#Put Code Here
+```  
+
+            
+2.6. Interpret the p-value in the context of the problem (actually interpret what the p-value measures, not the strength of evidence). 
+        
+> Insert Answer Here   
+
+
+
+2.7. Write a general conclusion to answer your research question. Be sure to include an additional piece of evidence in addition to the results of your inference test.  
+        
+        
+> Insert Answer Here  
+            
+
+ 
+
+
+
+# Two-sample Tests
+
+## Part 3: Restaurant Tips
+The owner of a bistro called First Crush in Potsdam, NY, is interested in studying the tipping and payment patterns of its patrons. He collected restaurant bills over a two-week period that he believes provide a good representative sample of his customers. That data from 157 bills are stored in `RestaurantTips` and includes the following variables:
+
+Variable      | Description
+--------------|-------------------------------------------------------------------------
+Bill          | Size of the bill (in dollars)
+Tip           | Size of the tip (in dollars)
+Credit        | Paid with a credit card? (n = NO, y = YES)
+Guests        | Number of people in the group
+Day           | Day of the Week (m=Monday, t=Tuesday, w=Wednesday, th=Thursday, f=Friday)
+Server  	    | Code for specific waiter/waitress (A, B, or C)
+PctTip        | Tips as a percentage of the bill
+
+```{r}
+#| label: p3-data
+
+library(Lock5Data)
+data("RestaurantTips") # use this code if you are using the Hub  / using package version 3.0
+# data("RestaurantTips1e")  # use this code instead of the one above if your personal computer has version 4+ of Lock5Data package. 
+```
+
+We are going to test whether people tip more when using a credit card versus cash or other option. We will continue to use `PctTip` and `Credit` as our focus from Lab 4.  
+
+Let's use a hypothesis test to see if there is any difference in mean tips as percentage of the bill for those that use credit card versus those that do not using credit card. Is there evidence in our data to support the idea that those that use credit cards are willing to tip more? 
+
+
+3.1. State the null and alternative hypothesis verbally and symbolically:
+
+            
+> $H_0: \mu_{___} - \mu_{___} = 0$  
+
+> verbal:   
+
+> $H_1: \mu_{___} - \mu_{___} ___ 0$  
+
+> verbal:   
+
+
+
+3.2. Calculate the appropriate test statistic and p-value. Use R and the for loop code. Fill in the code and describe the code using annotations accordingly; blanks to not correspond to the amount of code needed in that location. Make sure your calculations match your set up hypotheses.
+                            
+```{r}
+#| label: p3-permutation
+
+diff <- diff(mean(________________)) #take note of how the difference is calculated
+
+N <- 10^4 - 1 #describe
+
+perm_diff <- numeric(N) #describe
+
+for (i in 1:N) {
+  
+   perm_diff[i] <- diff(mean(__________))  #describe
+}
+
+gf_histogram(__________) #describe
+
+(sum(___________) + 1)/(N + 1) #describe
+```    
+          
+         
+3.3. Interpret the p-value in the context of the problem (actually interpret what the p-value measures, not not the strength of evidence).
+        
+> Insert Answer Here   
+
+    
+3.4. Write a general conclusion to answer your research question in the context of the problem. Be sure to include an additional piece of evidence in addition to the results of your inference test.  
+        
+>Insert Answer Here  
+            
+
+3.5. Can you trust the results of your test? Fully state and then check the conditions for conducting this analysis, justifying if you met them with evidence. At the end, discuss if you can trust the results of your analysis given your assessment.  
+
+> Insert answer here
+
+
+
+3.6. How do the results of your hypothesis test compare to the Bootstrap Confidence Interval calculated in Lab 4? Describe how confidence intervals and hypothesis tests can be used to support the inferences made by each.
+
+> Insert Answer Here
+
+
+
+
+CAUTION! Before you submit did you:
+
+* render the file freshly?
+* proofread your html? Did your answers format correctly so they are easy to read? Did any of your code produce errors you need to fix?
+* You are required to submit the .html individually, but you can also submit the .zip of all files for insurance.  
