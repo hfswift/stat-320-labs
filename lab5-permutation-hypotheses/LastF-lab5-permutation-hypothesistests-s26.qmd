@@ -40,11 +40,11 @@ library(tidyverse)
 # One-Sample Tests
 
 ## Part 1: Readers
-The percent of US adults who read books for pleasure may be decreasing. A survey of 2203 randomly selected US adults conducted in January 2021 found that 1057 adults said that they had read more than five in the last year. Does the 2021 survey provide evidence that more than half of US adults read no at least five books in a year? 
+The percent of US adults who read books for pleasure may be decreasing. A survey of 2203 randomly selected US adults conducted in January 2021 found that 1057 adults said that they had read more than five books in the last year. Does the 2021 survey provide evidence that more than half of US adults read at least six books in a year? 
 
 
 
-Test whether more than half of US adults read at least 5 books in a year. Show all details.
+Test whether more than half of US adults read at least 6 books in a year. Show all details.
 
 1.1. Modify the text below to state the null and alternative hypothesis by replacing [placeholder] with the appropriate word or value.
 
