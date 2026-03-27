@@ -1,0 +1,327 @@
+---
+title: "STAT 320 S26 Lab 6: Nonparametric Comparisons"
+author: "NAME"
+format: html
+embed-resources: true
+html-math-method: mathml
+execute: 
+  warning: false
+  echo: true
+  error: false
+---
+
+
+
+
+
+
+**Please make sure to show all R code and output after each question in the rendered .html so that I can see your work.** Run all code and write answers to each question indicated. Be sure to submit a rendered .html of your most recent work for credit. You may also submit a .zip of the full project in addition to your .html for extra insurance.
+
+
+CAUTION! Before you begin, did you: 
+
+* rename the .qmd before opening it? If not, do so now. 
+* add your name to the author above? *Note: that is the only part of the YAML header you should edit, unless you need help rendering to submit.* 
+
+Possibly useful symbols / examples of how to add context to any symbol (You can also learn more about writing formulas in markdown in the additional primers in the R Resources on Canvas):  
+$H_0$  $H_1$  $\mu$  $\mu_0$  $\mu_{word}$  $\mu_{phrase~with~spaces}$  $\theta$  $\pi$ $>  <  \neq$  $s^2$  $\bar{x}$  $\hat{p}$
+
+
+***
+
+```{r}
+#| label: setup
+#| include: false
+library(mosaic)
+library(ggformula)
+library(tidyverse)
+library(DescTools)
+library(jmuOutlier)
+theme_set(theme_light())
+```
+
+
+## Part 1: Lake Cleanup
+Environmental engineers were interested in determining whether a cleanup project on a nearby lake was effective. Prior to initiation of the project, they obtained 12 water samples at random sites from the lake and analyzed the samples for the amount of dissolved oxygen (in ppm). The clean up process is considered successful if the dissolved oxygen levels (measured as parts per million) drops after the cleanup. They took 12 additional samples at new random sites after cleanup. The data for dissolved oxygen is found in `lake-dissolvedO2.csv`.  
+
+
+1.1. Provide the relevant summary statistics and graphics for the study. 
+    
+```{r}
+#| label: lake-readdata
+disO2 <- read_csv("lake-dissolvedO2.csv")
+```
+
+
+```{r}
+#| label: lake-eda
+#summary stats and graphs here
+```
+
+
+1.2. The researchers want to determine if the center of the distribution is higher before cleanup and they decide to use the Wilcoxon Rank Sum Test to analyze these data. Why did they make this decision? Provide a full and complete justification.   
+
+> Insert answer here
+
+
+1.3. Let's use a hypothesis test to see if the dissolved oxygen levels were higher in the lake before the cleanup than in the lake after the cleanup. Use the Wilcoxon Rank Sum Test. Show all details.  
+
+1.3.i. State the null and alternative hypothesis.    
+            
+> $H_0$: 
+
+> $H_1$: 
+
+    
+       
+1.3.ii. Calculate the appropriate test statistic and p-value.  Use the R function for the test. Think about which data format you want for the function.
+                            
+```{r}
+#| label: lake-test
+
+```   
+          
+             
+1.3.iii. State the conclusion of the hypothesis test in the context of the problem. Supply the strength of evidence against the null hypothesis from the hypothesis test plus a second piece of evidence - has the cleanup made a difference?  
+        
+> Insert Strength of Evidence  
+
+> Insert Second Piece of Evidence  
+
+
+   
+1.4. One of the important things to consider in hypothesis testing is practical significance or effect size. Therefore we want to estimate the shift in dissolved oxygen levels from before to after the cleanup using a 90% confidence interval. Provide and interpret the confidence interval for the shift, then evaluate the confidence interval for evidence.   
+    
+```{r}
+#| label: lake-ci
+#ci code
+```  
+
+> Insert Interpretation Here  
+
+> Insert Evaluation Here  
+
+
+
+## Part 2: Teaching Methods  
+Williams and Carnine (1981) compared two different methods of training preschool children. Fourteen children were randomized to two groups. One group was taught an unfamiliar line angle concept with an example sequence containing minimally different, juxtaposed positive and negative examples and the other group was taught the same concept with a sequence of positive examples. For each child, the number of correct identifications among eighteen new examples was observed. The researchers wanted to determine if there was a difference between the two teaching methods. The data are below.  
+
+```{r}
+#| label: teach-readdata
+
+teach <- read_csv("teach-methods.csv")
+```   
+
+
+2.1. Provide the relevant summary statistics and graphics for the study.
+    
+```{r}
+#| label: teach-eda
+
+#stats and graphs
+```
+
+     
+2.2. Let's use a hypothesis test to see if the positive/negative group identified more items correctly compared to the positive only group. Use the Wilcoxon Rank Sum Test. Show all details.  
+
+2.2.i. Why did we choose to perform a Wilcoxon Rank Sum Test over other options to test measures of center? Justify fully. 
+
+> Insert answer here  
+
+
+2.2.ii. State the null and alternative hypothesis.     
+            
+> $H_0$:  
+
+> $H_1$:   
+
+
+2.2.iii. Calculate the appropriate test statistic and p-value. Use the R function for the test.  
+                            
+```{r}
+#| label: teach-cent-test
+
+```   
+          
+2.2.iv. State the conclusion of the hypothesis test in the context of the problem. Supply the strength of evidence against the null hypothesis from the hypothesis test plus a second piece of evidence - which teaching method was more effective, if any?  
+        
+> Insert Answer Here  
+    
+
+
+2.3. The researchers are also interested see if there is less variability in the preschoolers' abilities to identify the concept correctly for the positive/negative example trained group compared to the positive only group. The researchers decide to use the RMD method for the comparison of scale.  
+
+   
+2.3.i. Why did the researchers choose the RMD method instead of the Siegel-Tukey method?  
+            
+> Insert Answer Here   
+ 
+      
+2.3.ii. State the null and alternative hypothesis.    
+            
+> $H_0$:  
+
+> $H_1$:      
+ 
+ 
+
+
+2.3.iii. Calculate the appropriate test statistic and p-value.  Use the R code for the RMD test. Note - the built in test uses the mean, not the median.   
+                            
+```{r}
+#| label: teach-var-test  
+
+```    
+
+
+2.3.iv. State the conclusion of the hypothesis test in the context of the problem. Supply the strength of evidence against the null hypothesis from the hypothesis test plus a second piece of evidence - which teaching method was more effective, if any?  
+        
+> Insert Answers Here
+
+
+
+2.3.v. Should the researchers be cautious since the built in test uses the mean and not the median? Explain.  
+        
+> Insert Answer Here   
+
+
+## Part 3: Reaction Time
+In a clinical trial, twenty patients were randomized to two groups of equal size. In one group an active drug was administered. In the other group, the patients received a placebo. The patients were then tested to determine the reaction time necessary to react to a visual signal. The reactions times (in msec) are below. The researchers want to determine if there is a difference between scale of the two groups' reaction times.  
+
+```{r}
+#| label: react-readdata
+
+reaction <- read_csv("reaction.csv")
+```   
+
+3.1. Provide the relevant summary statistics and graphics for the study.
+  
+```{r}
+#| label: react-eda
+
+```   
+
+
+3.2. Determine which test of scale you are going to use on these data and justify why you picked it over other tests. 
+
+> Insert answer here
+
+
+3.3. Let's use a hypothesis test to see if the placebo group and the drug group differed in scale of reaction times. Show all details.  
+
+3.3.i. State the null and alternative hypothesis.   
+            
+> $H_0$:  
+
+> $H_1$:  
+ 
+3.3.ii. Calculate the appropriate test statistic and p-value. Use the R function for the test (or, if you are looking for a challenge, see if you can adapt the codes you've learned to permute the test yourself).  
+                            
+```{r}
+#| label: react-test
+
+placebo <- reaction |> filter(Treatment == "Placebo") #possibly of use 
+drug <- reaction |> filter(Treatment == "Drug")
+
+
+```    
+          
+3.3.iii. State the the strength of evidence against the null - does the drug have an effect on the reaction time?  
+        
+> Insert Answer Here  
+
+
+## Part 4: Climate
+Let's consider a limited set of climate data, examining temperatures in 1948 and in 2018 at different locations. (This is just a 'snapshot'; a complete analysis of temperature annually would consider much more than two years of data and much more additional information for those years.) The dataset `climate70`, loaded below (dataframe name), contains a random sample of locations from the National Oceanic and Atmospheric Administration's (NOAA) historical data, for locations where there was data available (US, Europe and Australia). For each location, the number of days that exceeds 90F was recorded in 2018 and in 1948 (variables: `dx90_2018`, `dx90_1948`). We want to examine if the number of days exceeding 90F has increased for locations in 2018 compared to 1948. Use the difference 2018 - 1948.
+
+```{r}
+#| label: climate-readdata
+#| message: false
+
+library(openintro) #this package is already installed on the Hub. If you are working on your own computer, you will need to install it. If you are trying to troubleshoot an issue, you can change message: to true, but change it back to false when you solve it so the library message doesn't appear in your rendered document. 
+data(climate70)
+```
+   
+
+4.1. Why should we do a paired analysis for this situation?
+
+> Insert Answer Here    
+
+    
+4.2. Provide any summary statistics or graphics relevant for exploratory analysis of the data. Be sure to provide exploratory data analysis that allows for assessment of assumptions, such as normality.
+
+```{r}
+#| label: climate-eda
+#Provide any code and output here
+ 
+```  
+        
+    
+
+
+4.3. Test the hypothesis that 2018 has an increased number of days over 90F using the permutation test for paired differences.  
+
+4.3.i. State the null and alternative hypothesis    
+            
+> $H_0:$    
+
+> $H_1:$  
+
+
+
+
+4.3.ii. Calculate the appropriate test statistic and p-value for the permutation test.    
+                            
+```{r}
+#| label: climate-perm
+
+```    
+          
+
+
+4.3.iii. State the conclusion of the hypothesis test (strength of evidence) in the context of the problem.    
+        
+> Insert Answer Here    
+
+
+4.4. Create a confidence interval to estimate parameter of interest using the bootstrap method for paired differences
+
+4.4.i. Calculate the confidence interval using the bootstrap method.
+
+```{r}
+#| label: climate-boot
+
+```
+
+4.4.ii. Evaluate your confidence interval for evidence. 
+
+> Insert answer here. 
+
+
+
+4.5. Test the hypothesis that 2018 has an increased number of days over 90F using the Wilcoxon Signed Rank test.
+
+4.5.i. State the null and alternative hypothesis.    
+            
+> $H_0:$  
+
+> $H_1:$ 
+
+ 
+4.5.ii. Calculate the appropriate test statistic and p-value.    
+                            
+```{r}
+#Put Code Here 
+```    
+          
+          
+4.5.iii. State the conclusion of the hypothesis test in the context of the problem.    
+        
+> Insert Answer Here  
+
+
+4.6. Which test do you think is the more appropriate (if any)?
+    
+> Insert Answer Here  
+
+
