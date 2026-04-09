@@ -200,7 +200,7 @@ Write a strength of evidence statement in the context of the problem.
  
           
 #### 1.h.         
-Based on the results of the tests for assumptions and exploratory data analysis.  Which of the one-way analysis tests (ANOVA, Permuted ANOVA, or Kruskal-Wallis Test) would you report as your final results? Explain.
+Based on the results of the tests for assumptions and exploratory data analysis, which of the one-way analysis tests (ANOVA, Permuted ANOVA, or Kruskal-Wallis Test) would you report as your final results? Explain.
     
 > Insert Answer Here   
 
@@ -378,7 +378,7 @@ Write a strength of evidence statement given your hypothesis test.
 
 
 ### 2.h
-Based on the results of the tests for assumptions and exploratory data analysis.  Which of the one-way analysis tests (ANOVA, Permuted ANOVA, or Kruskal-Wallis Test) would you report as your final results? Explain.
+Based on the results of the tests for assumptions and exploratory data analysis, which of the one-way analysis tests (ANOVA, Permuted ANOVA, or Kruskal-Wallis Test) would you report as your final results? Explain.
     
 > Insert Answer Here  
 
