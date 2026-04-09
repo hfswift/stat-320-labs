@@ -1,0 +1,396 @@
+---
+title: "STAT 320 S26 Lab 7: Comparisons of More than Three Groups"
+author: "NAME"
+format: html
+embed-resources: true
+html-math-method: mathml
+execute: 
+  warning: false
+  echo: true
+  error: false
+---
+
+
+
+
+
+
+**Please make sure to show all R code and output after each question in the rendered .html so that I can see your work.** Run all code and write answers to each question indicated. Be sure to submit a rendered .html of your most recent work for credit. You may also submit a .zip of the full project in addition to your .html for extra insurance.
+
+
+CAUTION! Before you begin, did you: 
+
+* rename the .qmd before opening it? If not, do so now. 
+* add your name to the author above? *Note: that is the only part of the YAML header you should edit, unless you need help rendering to submit.* 
+
+Possibly useful symbols / examples of how to add context to any symbol (You can also learn more about writing formulas in markdown in the additional primers in the R Resources on Canvas):  
+$H_0$  $H_1$  $\mu$  $\mu_0$  $\mu_{word}$  $\mu_{phrase~with~spaces}$  $\theta$  $\pi$ $>  <  \neq$  $s^2$  $\bar{x}$  $\hat{p}$  
+
+
+***
+
+```{r}
+#| label: setup
+#| include: false
+library(mosaic)
+library(ggformula)
+library(tidyverse)
+library(dunn.test)
+theme_set(theme_light())
+```
+
+
+
+## Part 1: Silicon Wafers
+Measurements of the resistivity (ohms-cm) of silicon wafers were made at the National Institute of Standards and Technology (NIST) with 5 different instruments on each of 5 days. Each of the 25 observations is the average of 6 measurements. **We wish to determine if there is a difference among the 5 instruments and their measures of resistivity.**  The data set wafers.csv.    
+
+### 1.a.     
+Explain why a Multiple Comparison Analysis is necessary to test the research question.
+    
+> Insert Answer Here  
+
+    
+### 1.b.   
+Provide the relevant summary statistics/graphics for the study.
+    
+```{r}
+#| label: read-wafer-eda
+
+wafer<- read_csv("wafers.csv")
+#Provide R code here  
+```
+
+### 1.c.      
+Use ANOVA analysis to evaluate the research hypothesis. 
+
+#### 1.c.i.
+State the null and alternative hypothesis  
+            
+> Insert Answer Here  
+
+
+#### 1.c.ii.
+Use R to find the ANOVA table.  
+                            
+```{r}
+#| label: wafer-anova
+
+#Put Code Here
+```    
+
+#### 1.c.iii.            
+Interpret the meaning of the p-value in the context of the situation.  
+        
+> Insert Answer Here  
+  
+            
+#### 1.c.iv.
+Interpret the meaning of the Mean Square Treatment (between) and the Mean Square for Residuals/Error (within), then compare their relative values.  
+        
+> Insert Answer Here  
+
+
+#### 1.c.v.       
+Write a strength of evidence statement in the context of the problem. 
+
+> Insert Answer Here  
+
+
+#### 1.c.vi.
+Is it necessary to perform a Post-Hoc Analysis? If yes, perform and interpret the results.  If no, explain why.  
+
+> Insert Answer Here   
+            
+         
+### 1.d.      
+We have to explore the whether the results of the analysis are trustworthy, i.e., the assumptions to perform the ANOVA are met by the data. First we will test Normality of the residuals (data).
+
+Generate the QQPlot of the residuals.  Based on the QQplot, does the assumption of Normality appear to be satisfied? Justify your answer with evidence. 
+        
+```{r}
+#| label: wafer-qqplot
+
+#Put Code Here
+```
+            
+> Insert Answer Here      
+            
+            
+### 1.e.
+Now we will test the assumption of equal variance among the groups. Some statisticians provide a standard that as long as no variance is twice as large as the other variances, or the variances are the same order of magnitude, we will be fine trusting the ANOVA. We will use the Residual Plot for a more formal analysis.  
+    
+Interpret the results of the Residual plot and justify if you have met the equal variance assumption with evidence. 
+            
+```{r}
+#| label: wafer-residualplot
+
+#Put Code Here
+```   
+            
+> Insert Answer Here  
+
+           
+### 1.f.
+Use the Kruskal-Wallis test to evaluate the research question.
+
+#### 1.f.i.  
+State the null and alternative hypothesis  
+            
+> Insert Answer Here  
+
+ 
+#### 1.f.ii.         
+Use R to find the KW Results.  
+                            
+```{r}
+#| label: wafer-kruskal
+#Put Code Here
+```   
+
+
+
+#### 1.f.iii.          
+Interpret the meaning of the p-value in the context of the situation.  
+        
+> Insert Answer Here  
+
+
+#### 1.f.iv.     
+State the strength of evidence statement in the context of the problem.
+        
+> Insert Answer Here  
+
+
+#### 1.f.v.          
+Is it necessary to perform a Post-Hoc Analysis? If yes, perform and interpret the results.  If no, explain why.  
+
+> Insert Answer Here     
+         
+
+### 1.g.   
+Use the Permuted ANOVA test to evaluate the research question.
+
+#### 1.g.i. 
+State the null and alternative hypothesis  
+            
+> Insert Answer Here  
+
+
+*Note it is the same as the Parametric ANOVA*           
+           
+#### 1.g.ii.         
+Use R to find the Permuted ANOVA results.  
+                            
+```{r}
+#| label: wafer-permuted
+
+#put code here
+```    
+
+#### 1.g.iii.           
+Interpret the meaning of the p-value in the context of the situation.  
+        
+> Insert Answer Here         
+  
+        
+#### 1.g.iv. 
+Write a strength of evidence statement in the context of the problem.
+        
+> Insert Answer Here  
+ 
+          
+#### 1.h.         
+Based on the results of the tests for assumptions and exploratory data analysis.  Which of the one-way analysis tests (ANOVA, Permuted ANOVA, or Kruskal-Wallis Test) would you report as your final results? Explain.
+    
+> Insert Answer Here   
+
+
+### 1.i. 
+Provide a second piece of evidence (not from one of your three hypothesis tests) that supports the conclusion you made from you chosen test from 2.h. Provide the evidence and describe how it supports your hypothesis test evidence in terms of the research question about parameters. 
+
+> Insert answer here.  
+
+
+#### 1.j. 
+What big picture conclusions can you make with your results (i.e.: can you generalize them, can you determine causality)? Provide what in the study lets you determine each and why it allows you to make those conclusions (or not).
+
+> Intert answer here.  
+
+
+
+
+## Part 2: Sandwich Ants
+It is common to have ants appear as unwelcome guests at picnics, but are ants attracted to all food equally? In a student study in Australia, a student chose three types of sandwich fillings to compare: Vegemite, peanut butter, and ham & pickles. He found a group of ant hills and for each trial, he randomly selected a sandwich type and left it on the ground near the hill. He then counted how many ants visited the sandwich after several minutes. He repeated the process 8 more times per sandwich for a total of 24 separate trials. The data (number of ants; `Ants`) attracted to each sandwich type `Filling`, with additional information, is found in `SandwichAnts` in the Lock5Data library.  
+
+
+### 2.a.     
+Explain why a Multiple Comparison Analysis is necessary to test the research question.
+
+> Insert Answer Here     
+  
+    
+### 2.b.   
+Provide the relevant summary statistics/graphics for the study.
+    
+```{r}
+#| label: read-ants-eda
+library(Lock5Data) #loading the Lock5Data package
+data(SandwichAnts) #loads the data into R; SandwichAnts is your dataframe name
+#Provide R code here  
+```
+
+### 2.c.      
+Use ANOVA analysis to evaluate the research hypothesis. 
+
+#### 2.c.i.
+State the null and alternative hypothesis  
+            
+> Insert Answer Here  
+
+
+#### 2.c.ii.
+Use R to find the ANOVA table.  
+                            
+```{r}
+#| label: ants-anova
+
+#put code here
+```    
+
+#### 2.c.iii.            
+Interpret the meaning of the p-value in the context of the situation.  
+        
+> Insert Answer Here  
+  
+        
+#### 2.c.iv.
+Interpret the meaning of the Mean Square Treatment (between) and the Mean Square for Residuals/Error (within), then compare their relative values.  
+        
+> Insert Answer Here             
+
+
+#### 2.c.v.       
+Write a strength of evidence statement given your hypothesis test. 
+        
+> Insert Answer Here  
+
+
+#### 2.c.vi.
+Is it necessary to perform a Post-Hoc Analysis? If yes, perform and interpret the results.  If no, explain why.  
+
+> Insert Answer Here  
+
+         
+### 2.d.      
+We have to explore the whether the results of the analysis are trustworthy, i.e., the assumptions to perform the ANOVA are met by the data. First we will test Normality of the residuals (data).
+
+Generate the QQPlot of the residuals.  Based on the QQplot, does the assumption of Normality appear to be satisfied? Justify your answer with evidence.
+        
+```{r}
+#| label: ants-qqplot
+
+#put code here
+```
+            
+> Insert Answer Here  
+
+   
+            
+### 2.e.
+Now we will test the assumption of equal variance among the groups. Some statisticians provide a standard that as long as no variance is twice as large as the other variances, or the variances are the same order of magnitude, we will be fine trusting the ANOVA. We will use the Residual Plot for a more formal analysis.  
+    
+Interpret the results of the Residual plot. Justify if you meet the conditions or not. 
+            
+```{r}
+#| label: ants-residualplot
+
+#put code here
+```   
+            
+> Insert Answer Here  
+
+           
+### 2.f.
+Use the Kruskal-Wallis test to evaluate the research question.
+
+#### 2.f.i.
+State the null and alternative hypothesis  
+
+> Insert Answer Here  
+          
+ 
+ 
+#### 2.f.ii.         
+Use R to find the KW Results.  
+                            
+```{r}
+#| label: ants-kw
+
+#put code here
+```    
+
+#### 2.f.iii.          
+Interpret the meaning of the p-value in the context of the situation.  
+        
+> Insert Answer Here  
+
+
+#### 2.f.iv.     
+Write a strength of evidence statement given your hypothesis test. 
+        
+> Insert Answer Here  
+
+
+#### 2.f.v.          
+Is it necessary to perform a Post-Hoc Analysis? If yes, perform and interpret the results.  If no, explain why.  
+> Insert Answer Here   
+   
+
+### 2.g.   
+Use the Permuted ANOVA test to evaluate the research question.
+
+#### 2.g.i. 
+State the null and alternative hypothesis  
+            
+> Insert Answer Here    
+           
+           
+#### 2.g.ii.         
+Use R to find the Permuted ANOVA results.  
+  
+```{r}
+#| label: ants-permuted
+
+#put code here
+```
+
+ 
+#### 2.g.iii.           
+Interpret the meaning of the p-value in the context of the situation.  
+        
+> Insert Answer Here  
+           
+        
+#### 2.g.iv. 
+Write a strength of evidence statement given your hypothesis test. 
+        
+> Insert Answer Here  
+
+
+### 2.h
+Based on the results of the tests for assumptions and exploratory data analysis.  Which of the one-way analysis tests (ANOVA, Permuted ANOVA, or Kruskal-Wallis Test) would you report as your final results? Explain.
+    
+> Insert Answer Here  
+
+
+### 2.i. 
+Provide a second piece of evidence (not from one of your three hypothesis tests) that supports the conclusion you made from your chosen test from 2.h. Provide the evidence and describe how it supports your hypothesis test evidence in terms of the research question about parameters. 
+
+> Insert answer here. 
+
+
+### 2.j. 
+What big picture conclusions can you make with your results (i.e.: can you generalize them, can you determine causality)? Provide what in the study lets you determine each and why it allows you to make those conclusions (or not).
+
+> Intert answer here. 
+
